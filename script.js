@@ -96,20 +96,10 @@ const kanaMap = [
   // 可扩展更多假名
 ];
 
-// 打乱数组顺序的函数
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-// 初始化：打乱假名
-shuffleArray(kanaMap);
-
 // 当前索引和错误记录
 let currentIndex = 0;
-let wrongAnswers = [];
+let currentKana = null; // 当前假名
+let wrongAnswers = [];  // 错误记录
 
 // 生成下一个假名
 function generateKana() {
@@ -118,7 +108,7 @@ function generateKana() {
 
   // 检查是否还有假名
   if (currentIndex < kanaMap.length) {
-    currentKana = kanaMap[currentIndex];
+    currentKana = kanaMap[currentIndex]; // 确保正确初始化 currentKana
     kanaDisplay.innerText = currentKana.kana;
     resultDisplay.innerText = "";
     document.getElementById("answer").value = "";
@@ -132,6 +122,13 @@ function generateKana() {
 function checkAnswer() {
   const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
   const resultDisplay = document.getElementById("result");
+
+  if (!currentKana) {
+    // 如果 currentKana 尚未初始化，避免报错
+    resultDisplay.innerText = "请先生成假名！";
+    resultDisplay.style.color = "red";
+    return;
+  }
 
   if (userAnswer === currentKana.romaji) {
     resultDisplay.innerText = "正确！";
