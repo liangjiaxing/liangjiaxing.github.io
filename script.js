@@ -96,6 +96,16 @@ const kanaMap = [
   // 可扩展更多假名
 ];
 
+// 打乱数组顺序的函数
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+// 初始化：打乱假名
+shuffleArray(kanaMap);
+
 // 当前索引和错误记录
 let currentIndex = 0;
 let currentKana = null; // 当前假名
