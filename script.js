@@ -178,9 +178,5 @@ function showResults() {
   document.getElementById("next-btn").style.display = "none";
 }
 
-// 添加事件绑定
-document.getElementById("submit-btn").addEventListener("click", checkAnswer);
-document.getElementById("next-btn").addEventListener("click", generateKana);
-
 // 初始化游戏
 generateKana();
