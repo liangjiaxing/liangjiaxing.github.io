@@ -178,5 +178,11 @@ function showResults() {
   document.getElementById("next-btn").style.display = "none";
 }
 
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    checkAnswer(); // 调用提交函数
+  }
+}
+
 // 初始化游戏
 generateKana();
