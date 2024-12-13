@@ -96,28 +96,84 @@ const kanaMap = [
   // 可扩展更多假名
 ];
 
-// 当前假名
-let currentKana = kanaMap[0];
+// 打乱数组顺序的函数
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
-// 生成随机假名
+// 初始化：打乱假名
+shuffleArray(kanaMap);
+
+// 当前索引和错误记录
+let currentIndex = 0;
+let wrongAnswers = [];
+
+// 生成下一个假名
 function generateKana() {
-  const randomIndex = Math.floor(Math.random() * kanaMap.length);
-  currentKana = kanaMap[randomIndex];
-  document.getElementById("kana").innerText = currentKana.kana;
-  document.getElementById("result").innerText = "";
-  document.getElementById("answer").value = "";
+  const kanaDisplay = document.getElementById("kana");
+  const resultDisplay = document.getElementById("result");
+
+  // 检查是否还有假名
+  if (currentIndex < kanaMap.length) {
+    currentKana = kanaMap[currentIndex];
+    kanaDisplay.innerText = currentKana.kana;
+    resultDisplay.innerText = "";
+    document.getElementById("answer").value = "";
+  } else {
+    // 显示错误统计
+    showResults();
+  }
 }
 
 // 检查答案
 function checkAnswer() {
   const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
-  const result = document.getElementById("result");
+  const resultDisplay = document.getElementById("result");
 
   if (userAnswer === currentKana.romaji) {
-    result.innerText = "正确！";
-    result.style.color = "green";
+    resultDisplay.innerText = "正确！";
+    resultDisplay.style.color = "green";
   } else {
-    result.innerText = `错误，正确答案是：${currentKana.romaji}`;
-    result.style.color = "red";
+    resultDisplay.innerText = `错误，正确答案是：${currentKana.romaji}`;
+    resultDisplay.style.color = "red";
+
+    // 记录错误的假名
+    wrongAnswers.push(currentKana);
   }
+
+  // 移动到下一个假名
+  currentIndex++;
+  setTimeout(generateKana, 1000); // 延迟 1 秒后显示下一个假名
 }
+
+// 显示错误统计结果
+function showResults() {
+  const kanaDisplay = document.getElementById("kana");
+  const resultDisplay = document.getElementById("result");
+
+  kanaDisplay.innerText = "游戏结束！";
+  if (wrongAnswers.length > 0) {
+    const wrongKanaList = wrongAnswers
+      .map(item => `${item.kana} (${item.romaji})`)
+      .join(", ");
+    resultDisplay.innerHTML = `以下假名回答错误：<br>${wrongKanaList}`;
+    resultDisplay.style.color = "red";
+  } else {
+    resultDisplay.innerText = "恭喜！你全部答对了！";
+    resultDisplay.style.color = "green";
+  }
+
+  // 隐藏输入框和按钮
+  document.querySelector(".input-container").style.display = "none";
+  document.getElementById("next-btn").style.display = "none";
+}
+
+// 添加事件绑定
+document.getElementById("submit-btn").addEventListener("click", checkAnswer);
+document.getElementById("next-btn").addEventListener("click", generateKana);
+
+// 初始化游戏
+generateKana();
