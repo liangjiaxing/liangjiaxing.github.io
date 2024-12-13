@@ -122,8 +122,6 @@ function generateKana() {
     kanaDisplay.innerText = currentKana.kana;
     resultDisplay.innerText = "";
     document.getElementById("answer").value = "";
-    document.getElementById("result").innerText = "";
-    document.getElementById("kana").innerText = currentKana.kana;
   } else {
     // 显示错误统计
     showResults();
