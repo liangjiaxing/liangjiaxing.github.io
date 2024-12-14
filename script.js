@@ -121,7 +121,6 @@ function generateKana() {
     currentKana = kanaMap[currentIndex]; // 确保正确初始化 currentKana
     kanaDisplay.innerText = currentKana.kana;
     resultDisplay.innerText = "";
-    document.getElementById("answer").value = "";
   } else {
     // 显示错误统计
     showResults();
