@@ -140,9 +140,12 @@ function checkAnswer() {
     return;
   }
 
+  waitTime = 1000
+
   if (userAnswer === currentKana.romaji) {
     resultDisplay.innerText = "正确！";
     resultDisplay.style.color = "green";
+    waitTime = 0;
   } else {
     resultDisplay.innerText = `错误，正确答案是：${currentKana.romaji}`;
     resultDisplay.style.color = "red";
@@ -153,7 +156,7 @@ function checkAnswer() {
 
   // 移动到下一个假名
   currentIndex++;
-  setTimeout(generateKana, 1000); // 延迟 1 秒后显示下一个假名
+  setTimeout(generateKana, waitTime); // 延迟 1 秒后显示下一个假名
 }
 
 // 显示错误统计结果
