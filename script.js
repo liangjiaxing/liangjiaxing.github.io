@@ -146,7 +146,7 @@ function checkAnswer() {
     resultDisplay.style.color = "green";
     waitTime = 0;
   } else {
-    resultDisplay.innerText = `错误，正确答案是：${currentKana.romaji}`;
+    resultDisplay.innerText = `错误，正确答案是：${currentKana.kana} ${currentKana.romaji}`;
     resultDisplay.style.color = "red";
 
     // 记录错误的假名
