@@ -140,7 +140,7 @@ function checkAnswer() {
     return;
   }
 
-  waitTime = 1000;
+  let waitTime = 1000;
 
   if (userAnswer === currentKana.romaji) {
     resultDisplay.innerText = "正确！";
